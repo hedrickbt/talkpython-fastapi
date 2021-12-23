@@ -12,4 +12,4 @@ def calculate():
     }
 
 
-uvicorn.run(api, port=8000, host='127.0.0.1')
+uvicorn.run(api, port=8001, host='127.0.0.1')
