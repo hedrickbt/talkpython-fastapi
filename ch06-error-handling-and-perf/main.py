@@ -2,14 +2,26 @@ import json
 from pathlib import Path
 
 import fastapi
+import sentry_sdk
 import uvicorn
 from starlette.staticfiles import StaticFiles
+from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 
 from api import weather_api
 from services import openweather_service
 from views import home
 
+sentry_sdk.init(
+    "https://0da645162ce949209202a08e9873a4c2@o1110945.ingest.sentry.io/6140069",
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0
+)
+
 api = fastapi.FastAPI()
+api.add_middleware(SentryAsgiMiddleware)
 
 
 def configure_routing():
